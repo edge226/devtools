@@ -146,7 +146,7 @@ chroot_run() {
     	cd ../
     	echo "$@"
 	mount "${mount_args[@]}" "$dir"
-	echo "$@"
+	echo ${@}
     	chroot -- ${@} 2>/dev/null
 #	umount -ARdf "$dir" ##/{dev,sys,proc}
 	#umount -f "$dir"/dev
