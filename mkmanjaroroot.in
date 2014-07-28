@@ -137,7 +137,14 @@ chroot_lock () {
 chroot_run() {
 	local dir=$1
 	shift
-	systemd-nspawn -D "${dir}" "${mount_args[@]}" -- ${@} 2>/dev/null
+	# systemd-nspawn -D "${dir}" "${mount_args[@]}" -- ${@} 2>/dev/null
+	cd "$dir"
+	mount -t proc proc proc/
+    	mount --rbind /sys sys/
+    	mount --rbind /dev dev/
+    	cd ../
+	chroot "${dir}" "${mount_args[@]}" -- ${@} 2>/dev/null
+	umount -Rdlf "$dir"
 }
 
 # }}}
