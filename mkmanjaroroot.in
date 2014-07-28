@@ -143,8 +143,12 @@ chroot_run() {
     	mount --rbind /sys sys/
     	mount --rbind /dev dev/
     	cd ../
+    	
 	chroot "${dir}" -- ${@} 2>/dev/null
-	umount -Rdlf "$dir"
+	#umount -Rdlf "$dir"
+	umount -f "$dir"/dev
+	umount -f "$dir"/sys
+	umount -f "$dir"/proc
 }
 
 # }}}
