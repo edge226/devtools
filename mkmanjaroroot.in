@@ -91,7 +91,7 @@ build_mount_args() {
 	fi
 
 	printf -v p '%q' "${cache_dirs[0]}"
-	mount_args+=(--bind="$p")
+	mount_args+=(--bind "$p")
 
 	for cache_dir in ${cache_dirs[@]:1}; do
 		printf -v p '%q' "$cache_dir"
