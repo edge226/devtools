@@ -160,7 +160,6 @@ if [[ -n $RUN ]]; then
 	mount -t proc proc proc/
 	mount --rbind /sys sys/
 	mount --rbind /dev dev/
-	cd ../
 	mount "${mount_args[@]}" "${working_dir}""${mount_args[@]}"
 	chroot_run "${working_dir}" ${RUN}
 	umount -lfd "${working_dir}"/dev
