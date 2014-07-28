@@ -10,7 +10,7 @@ license=('GPL')
 url='http://git.manjaro.org/core/devtools/'
 depends=('namcap' 'openssh' 'subversion' 'rsync' 'arch-install-scripts')
 conflicts=('devtools-openrc')
-source=(devtools-20140728.tar.xz)
+source=('https://github.com/edge226/devtools/archive/master.zip')
 sha256sums=('SKIP')
 
 build() {
