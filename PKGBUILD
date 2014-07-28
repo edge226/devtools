@@ -9,7 +9,7 @@ arch=('any')
 license=('GPL')
 url='http://git.manjaro.org/core/devtools/'
 depends=('namcap' 'openssh' 'subversion' 'rsync' 'arch-install-scripts')
-conflicts=('devtools-openrc')
+conflicts=('devtools-openrc' 'devtools')
 source=('https://github.com/edge226/devtools/archive/master.zip')
 sha256sums=('SKIP')
 
