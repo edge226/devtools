@@ -161,8 +161,8 @@ if [[ -n $RUN ]]; then
 	mount -t proc proc proc/
 	mount --rbind /sys sys/
 	mount --rbind /dev dev/
-	echo "${mount_args[@]}"
-	#mount "${mount_args[@]}" "${working_dir}"/var/lib/
+	#echo "${mount_args[@]}"
+	mount "${mount_args[@]}" "${working_dir}"/var/cache/pacman/pkg
 	chroot_run "${working_dir}" ${RUN}
 	cd ../
 	umount -lfd "${working_dir}"/dev;
