@@ -138,6 +138,7 @@ chroot_run() {
 	local dir=$1
 	shift
 	# systemd-nspawn -D "${dir}" "${mount_args[@]}" -- ${@} 2>/dev/null
+	echo "$dir"
 	cd "$dir"
 	mount -t proc proc proc/
     	mount --rbind /sys sys/
