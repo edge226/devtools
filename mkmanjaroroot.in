@@ -146,9 +146,9 @@ chroot_run() {
     	
 	chroot "${dir}" -- ${@} 2>/dev/null
 	#umount -Rdlf "$dir"
-	umount -f "$dir"/dev
-	umount -f "$dir"/sys
-	umount -f "$dir"/proc
+	#umount -f "$dir"/dev
+	#umount -f "$dir"/sys
+	#umount -f "$dir"/proc
 }
 
 # }}}
