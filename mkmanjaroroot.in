@@ -138,7 +138,7 @@ chroot_run() {
 	local dir=$1
 	shift
 	# systemd-nspawn -D "${dir}" "${mount_args[@]}" -- ${@} 2>/dev/null
-    	chroot -- ${@} 2>/dev/null
+    	chroot "$dir" -- ${@} 2>/dev/null
 }
 
 # }}}
