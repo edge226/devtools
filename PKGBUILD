@@ -14,9 +14,11 @@ source=('https://github.com/edge226/devtools/archive/master.zip')
 sha256sums=('SKIP')
 
 build() {
+	cd "$pkgname"
 	make PREFIX=/usr
 }
 
 package() {
+	cd "$pkgname"
 	make PREFIX=/usr DESTDIR=${pkgdir} install
 }
