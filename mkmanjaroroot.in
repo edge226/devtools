@@ -163,9 +163,9 @@ if [[ -n $RUN ]]; then
 	mount --rbind /dev dev/
 	chroot_run "${working_dir}" ${RUN}
 	cd ../
-	umount dev;
-	umount sys;
-	umount proc;
+	umount -lfd dev;
+	umount -lfd sys;
+	umount -lfd proc;
 	
 	
 	
