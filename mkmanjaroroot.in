@@ -144,7 +144,7 @@ chroot_run() {
     	mount --rbind /dev dev/
     	cd ../
 	mount "${mount_args[@]}" "$dir"
-    	chroot "${dir}" -- ${@} 2>/dev/null
+    	chroot "${dir}" ${@} 2>/dev/null
 #	umount -ARdf "$dir" ##/{dev,sys,proc}
 	#umount -f "$dir"/dev
 	#umount -f "$dir"/sys
