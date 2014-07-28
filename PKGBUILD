@@ -19,6 +19,7 @@ build() {
 }
 
 package() {
+        rm -rf /var/lib/manjarobuild/*
 	cd "devtools-master"
 	make PREFIX=/usr DESTDIR=${pkgdir} install
 }
