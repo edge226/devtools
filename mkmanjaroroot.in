@@ -91,7 +91,7 @@ build_mount_args() {
 	fi
 
 	printf -v p '%q' "${cache_dirs[0]}"
-	mount_args+=(--bind="$p")
+	mount_args+=(--bind "$p")
 
 	for cache_dir in ${cache_dirs[@]:1}; do
 		printf -v p '%q' "$cache_dir"
@@ -137,7 +137,7 @@ chroot_lock () {
 chroot_run() {
 	local dir=$1
 	shift
-	systemd-nspawn -D "${dir}" "${mount_args[@]}" -- ${@} 2>/dev/null
+    	env - name="BUILDPKG" chroot "$dir" ${@} 2>/dev/null
 }
 
 # }}}
@@ -155,9 +155,21 @@ if [[ -n $RUN ]]; then
 	chroot_lock
 	build_mount_args
 	copy_hostconf
-
+	
+	cd "${working_dir}"
+	mount -t proc proc proc/
+	mount --rbind /sys sys/
+	mount --rbind /dev dev/
+	mount "${mount_args[@]}" "${working_dir}"/var/cache/pacman/pkg
 	chroot_run "${working_dir}" ${RUN}
-
+	cd ../
+	umount -lfd "${working_dir}"/dev;
+	umount -lfd "${working_dir}"/sys;
+	umount -lfd "${working_dir}"/proc;
+	umount -lfd "${working_dir}"/var/cache/pacman/pkg
+	
+	
+	
 	# }}}
 else
 	# {{{ build chroot
