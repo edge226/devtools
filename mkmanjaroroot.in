@@ -138,16 +138,17 @@ chroot_run() {
 	local dir=$1
 	shift
 	# systemd-nspawn -D "${dir}" "${mount_args[@]}" -- ${@} 2>/dev/null
-	echo "$dir"
-	cd "$dir"
+	#echo "$dir"
+	cd "$cache_dir"
 	mount -t proc proc proc/
     	mount --rbind /sys sys/
     	mount --rbind /dev dev/
     	cd ../
-    	echo "$@"
+    	#echo "$@"
+    	echo "$cache_dir"
 	mount "${mount_args[@]}" "$dir"
 	echo ${@}
-    	chroot -- ${@} 2>/dev/null
+    	chroot "$cache_dir" -- ${@} 2>/dev/null
 #	umount -ARdf "$dir" ##/{dev,sys,proc}
 	#umount -f "$dir"/dev
 	#umount -f "$dir"/sys
