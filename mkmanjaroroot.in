@@ -143,13 +143,13 @@ chroot_run() {
 	mount -t proc proc proc/
     	mount --rbind /sys sys/
     	mount --rbind /dev dev/
-    	cd ../
+    	#cd ../
     	#echo "$@"
     	echo "${cache_dirs}"
     	echo "${working_dir}"
 	mount "${mount_args[@]}" "$dir"
 	echo "${@}"
-    	chroot "$cache_dir" -- ${@} 2>/dev/null
+    	chroot  -- ${@} 2>/dev/null
 #	umount -ARdf "$dir" ##/{dev,sys,proc}
 	#umount -f "$dir"/dev
 	#umount -f "$dir"/sys
@@ -171,7 +171,9 @@ if [[ -n $RUN ]]; then
 	chroot_lock
 	build_mount_args
 	copy_hostconf
-
+	
+	echo "${working_dir}"
+	
 	chroot_run "${working_dir}" ${RUN}
 
 	# }}}
