@@ -138,7 +138,7 @@ chroot_run() {
 	local dir=$1
 	shift
 	# systemd-nspawn -D "${dir}" "${mount_args[@]}" -- ${@} 2>/dev/null
-    	env name="BUILDPKG" chroot "$dir" -- ${@} 2>/dev/null
+    	env - name="BUILDPKG" chroot "$dir" ${@} 2>/dev/null
 }
 
 # }}}
@@ -161,6 +161,8 @@ if [[ -n $RUN ]]; then
 	mount -t proc proc proc/
 	mount --rbind /sys sys/
 	mount --rbind /dev dev/
+	echo "${mount_args[@]}"
+	#mount "${mount_args[@]}" "${working_dir}"/var/lib/
 	chroot_run "${working_dir}" ${RUN}
 	cd ../
 	umount -lfd "${working_dir}"/dev;
