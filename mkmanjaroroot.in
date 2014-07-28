@@ -168,8 +168,6 @@ if [[ -n $RUN ]]; then
 	umount -lfd "${working_dir}"/proc;
 	umount -lfd "${working_dir}"/var/cache/pacman/pkg
 	
-	
-	
 	# }}}
 else
 	# {{{ build chroot
