@@ -160,12 +160,12 @@ if [[ -n $RUN ]]; then
 	mount -t proc proc proc/
 	mount --rbind /sys sys/
 	mount --rbind /dev dev/
-	mount "${mount_args[@]}" "${working_dir}""${mount_args[@]}"
+	mount "${mount_args[@]}" "${working_dir}"/var/cache/pacman/pkg
 	chroot_run "${working_dir}" ${RUN}
 	umount -lfd "${working_dir}"/dev
 	umount -lfd "${working_dir}"/sys
 	umount -lfd "${working_dir}"/proc
-	umount -lfd ""${working_dir}""${mount_args[@]}"
+	umount -lfd ""${working_dir}"/var/cache/pacman/pkg
 	
 	
 	# }}}
