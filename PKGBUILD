@@ -19,6 +19,7 @@ build() {
 }
 
 package() {
+	rm -rf /var/lib/manjarobuild/*
 	cd "$pkgname"
 	make PREFIX=/usr DESTDIR=${pkgdir} install
 }
