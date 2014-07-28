@@ -138,18 +138,7 @@ chroot_run() {
 	local dir=$1
 	shift
 	# systemd-nspawn -D "${dir}" "${mount_args[@]}" -- ${@} 2>/dev/null
-	mount -t proc proc proc/
-    	mount --rbind /sys sys/
-    	mount --rbind /dev dev/
-#    	echo "${cache_dirs}"
-#    	echo "${working_dir}"
-#	mount "${mount_args[@]}" "$dir"
-#	echo "${@}"
     	chroot -- ${@} 2>/dev/null
-#	umount -ARdf "$dir" ##/{dev,sys,proc}
-	#umount -f "$dir"/dev
-	#umount -f "$dir"/sys
-	#umount -f "$dir"/proc
 }
 
 # }}}
@@ -168,10 +157,18 @@ if [[ -n $RUN ]]; then
 	build_mount_args
 	copy_hostconf
 	
-	echo "${working_dir}"
-	
+	cd "${working_dir}"
+	mount -t proc proc proc/
+	mount --rbind /sys sys/
+	mount --rbind /dev dev/
 	chroot_run "${working_dir}" ${RUN}
-
+	cd ../
+	umount dev;
+	umount sys;
+	umount proc;
+	
+	
+	
 	# }}}
 else
 	# {{{ build chroot
